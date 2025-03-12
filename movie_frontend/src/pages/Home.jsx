@@ -2,6 +2,8 @@ import MovieCard from "../components/MovieCard"
 import { useState } from "react"
 
 function Home(){
+    // useState allows us to create a state variable, and a function to update that variable
+    // The variable persists through re-renders, and the function is used to update the variable
     const [searchQuery, setSearchQuery] = useState("");
     const movies = [
         {id: 1, title: "The Shawshank Redemption", year: 1994},

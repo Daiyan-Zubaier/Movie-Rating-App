@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './App.css'
+import './css/App.css'
 import MovieCard from './components/MovieCard'
 import Home from "./pages/Home"
 import {Routes, Route} from "react-router-dom"

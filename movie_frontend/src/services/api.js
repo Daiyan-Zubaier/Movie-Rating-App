@@ -1,4 +1,5 @@
-const API_KEY = process.env.MOVIE_API_KEY;
+import API_KEY from '../../config_key';
+
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 // Async function means that the function will wait until the promise is resolved

@@ -14,7 +14,7 @@ export const getPopularMovies = async () => {
     return data.results;
 };
 
-export const searchMovies = async () => {
+export const searchMovies = async (query) => {
     // fetch lets you send a network request
     const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
 

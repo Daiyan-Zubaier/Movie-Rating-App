@@ -1,17 +1,34 @@
 import MovieCard from "../components/MovieCard"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import  "../css/Home.css"
+import { searchMovies, getPopularMovies } from "../services/api";
 
 function Home(){
     // useState allows us to create a state variable, and a function to update that variable
     // The variable persists through re-renders, and the function is used to update the variable
     const [searchQuery, setSearchQuery] = useState("");
-    const movies = [
-        {id: 1, title: "The Shawshank Redemption", year: 1994},
-        {id: 2, title: "The Godfather", year: 1972},    
-        {id: 3, title: "The Dark Knight", year: 2008},
-        {id: 4, title: "Goodfellas", year: 1990}
-    ]
+    const [movies, setMovies] = useState([]);
+
+    // Error is set to null by default, and will be set to an error message if an error occurs
+    const [error, setError] = useState(null);
+    // Loading is set to true by default, and will be set to false once the data is loaded
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadPopularMovies = async () => {
+            try{
+                // Await is used to wait for the promise to resolve, and then assigns the resolved value to popularMovies
+                const popularMovies = await getPopularMovies();
+                setMovies(popularMovies);
+            } catch (err) {
+                console.log(err);
+                setError("Failed to load");
+            } finally {
+                setLoading(false);
+            }
+        }
+        loadPopularMovies();
+    }, []);
 
     const handleSubmit = (event) => {
         // Normally clears page during submission, prevent default just prevents that

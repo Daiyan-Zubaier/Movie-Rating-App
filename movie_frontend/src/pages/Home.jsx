@@ -30,10 +30,30 @@ function Home(){
         loadPopularMovies();
     }, []);
 
-    const handleSubmit = (event) => {
+
+    const handleSubmit = async (event) => {
         // Normally clears page during submission, prevent default just prevents that
         event.preventDefault();
-        console.log("Search form submitted");
+
+        if (!searchQuery.trim() || loading) { return; }
+        
+        setLoading(true);
+
+        try{
+            const searchResults = await searchMovies(searchQuery);
+            setMovies(searchResults);
+            setError(null); // If error before, clear error
+        }
+        catch (err){
+            console.log(err);
+            setError("Failed to search movies");
+        }
+        finally{
+            setLoading(false);
+        }
+
+        // If searchQuery is empty, return        
+        setSearchQuery("");
     };
 
     return (
@@ -48,12 +68,23 @@ function Home(){
                 <button type="submit" className="search-button">Search</button> 
             </form>
 
-            <div className="movies-grid">
-                {movies.map(movie => 
-                    movie.title.toLocaleLowerCase().startsWith(searchQuery) && (
-                    <MovieCard key={movie.id} movie={movie} />
-                ))}
-            </div>
+            {/*Display errror*/}
+            {error && <div className="error-message">{error}</div>}
+
+            {/*If loading, display loading, otherwise, display movie grid based on search query*/}
+            {loading ?
+                (<div className="loading">
+                    Loading...
+                </div>) 
+                :
+                (<div className="movies-grid">
+                    {movies.map(movie =>
+                        movie.title.toLocaleLowerCase().startsWith(searchQuery.toLocaleLowerCase()) && (
+                            <MovieCard key={movie.id} movie={movie} />
+                        ))}
+                </div>)}
+            
+            
          </div>
     )
 }

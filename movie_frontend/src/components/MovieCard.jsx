@@ -9,7 +9,7 @@ function MovieCard({movie}){
             <div className="card-image">
                 <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
                 <div className="overlay"> 
-                    <button className="watched-button" onClick={onWatched}>👁️</button>
+                    <button className="watched-button" onClick={onWatched}>👁</button>
                 </div>
             </div>
             <div className="card-content">

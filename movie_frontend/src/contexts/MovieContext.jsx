@@ -4,4 +4,7 @@ const MovieContext = createContext();
 
 export const useMovieContext = () =>  useContext(MovieContext);
 
-export const MovieProvider = () => {  }
+// Provide state to any component "wrapped" around it
+export const MovieProvider = ({children}) => {
+    
+}
